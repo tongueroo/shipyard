@@ -1,12 +1,16 @@
-require 'facets/class/cattr'
 lib = File.expand_path("..", __FILE__)
 require "#{lib}/shipyard/cache"
 require "#{lib}/shipyard/benchmarker"
 
 class Shipyard
-  cattr_accessor :project
+  # Tried using require 'facets/class/cattr' but it causes issues with Rails.application.load_tasks
+  # https://gist.github.com/tongueroo/b35320d6aaa95dccaf193dab13c2ceb1
+  @@project = nil
+  def self.project=(name) ; @@project = name ; end
+  def self.project ; @@project ; end
   @@server = "shipyard"
-  cattr_accessor :server
+  def self.server=(name) ; @@server = name ; end
+  def self.server ; @@server ; end
 
   def self.load_rake_tasks(project)
     Shipyard.project = project
