@@ -26,7 +26,7 @@ FROM [project-name]:cache-[date]-[git-sha]
 
 Having one Dockerfile and docker image is the standard way of building docker images.  However, for my use case, it was easier to build a cache image once in a while and have most of the dependencies cached in that cached image.  This speeds up development in most cases.  This also speeds up deployment as a docker pull of the cache image is faster than building the dependencies fresh on a newly provision server.
 
-This cache docker image will inevitablely get slow as the delta between it and the final docker image grows.  Whenver that happens this task provides a relatively quick way to update the docker cache image.
+This cache docker image will inevitablely get slow as the delta between it and the final docker image grows.  Whenever that happens the tasks in this tool provide a quick way to update the docker cache image.
 
 The docker cache image name uses the HEAD git sha to allow different base images among different long running feature branches.
 
@@ -48,7 +48,7 @@ Or install it yourself as:
 
     $ gem install shipyard
 
-Add it to your Rakefile.  You'll need to pass the docker image name as part of the `load_rake_tasks` method.  
+Add it to your Rakefile.  You will need to pass the docker image name as part of the `load_rake_tasks` method.
 
 Rakefile Example 1:
 
