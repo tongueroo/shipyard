@@ -37,16 +37,12 @@ Ideally, the entire final docker image should be built and shipped as part of th
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'shipyard'
+gem 'shipyard', github: 'tongueroo/shipyard'
 ```
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install shipyard
 
 Add it to your Rakefile.  You will need to pass the docker image name as part of the `load_rake_tasks` method.
 
