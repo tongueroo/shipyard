@@ -84,7 +84,7 @@ To build docker images remotely:
 rake shipyard:build:cache
 ```
 
-By default a "shipyard" server is used and the code that you have locally is rsynced onto the shipyard server.  This can be configured in your `~/.ssh/config`.
+By default a "shipyard" server is used and the code that you have locally is rsynced onto the shipyard server and then the docker build commands are executed remotely on the remote server.  This can be configured in your `~/.ssh/config`.
 
 You can also override this via `Shipyard.server`.  Example:
 
