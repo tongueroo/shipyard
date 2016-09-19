@@ -80,10 +80,10 @@ LOCAL=1 rake shipyard:build:cache
 
 But normally the docker cache image gets build remotely on a server that you will need to set up so that it can run basically `docker build` commands.
 
-To build docker images locally:
+To build docker images remotely:
 
 ```
-LOCAL=1 rake shipyard:build:cache
+rake shipyard:build:cache
 ```
 
 By default a "shipyard" server is used and the code that you have locally is rsynced onto the shipyard server.  This can be configured in your `~/.ssh/config`.
