@@ -48,13 +48,13 @@ Or install it yourself as:
 
 Add it to your Rakefile.  You'll need to pass the docker image name as part of the `load_rake_tasks` method.  
 
-Example 1:
+Rakefile Example 1:
 
 ```ruby
 Shipyard.load_rake_tasks("tongueroo/ruby")
 ```
 
-Example 2:
+Rakefile Example 2:
 
 ```ruby
 Shipyard.load_rake_tasks("tongueroo/elixir")
