@@ -1,8 +1,8 @@
 # Shipyard
 
-This gem provides tasks which helps build a "cache" docker image layer.  In order to use this you'll need to have both `Dockerfile` and `Dockerfile.cache` files at the root of your project.  
+This gem provides tasks which helps build a "cache" docker image layer.  In order to use this you'll need to have both `Dockerfile` and `Dockerfile.cache` files at the root of your project.  As a trade off for speed the Dockerfile.cache will build most of the project and the Dockerfile simply builds the final delta.
 
-The shipyard task `rake shipyard:build:cache` will use the `Dockerfile.cache` file to build a docker image and updated the FROM line in the `Dockerfile` with this newly generated docker image.
+The shipyard task `rake shipyard:build:cache` will use the `Dockerfile.cache` file to automatically generate a new docker baseline image.  It also updates the main Dockerfile FROM line with the name of the newly generated docker image.  By default, it does this on a remote AWS machine in order to take advantage of the speed of the AWS network for the docker push.
 
 For example, let's say that `Dockerfile` has this FROM line:
 
@@ -24,11 +24,13 @@ FROM [project-name]:cache-[date]-[git-sha]
 
 ## Why do this?
 
-Having one Dockerfile and docker image is the standard way of building docker images.  However, for my use case, it was easier to build a cache image once in a while and have most of the dependencies cached in that cached image.  This also speeds up deployment on a newly provision server as a docker pull is faster than building the dependencies in that case.  Then the delta is built as part of the deploy.
+Having one Dockerfile and docker image is the standard way of building docker images.  However, for my use case, it was easier to build a cache image once in a while and have most of the dependencies cached in that cached image.  This speeds up development in most cases.  This also speeds up deployment as a docker pull of the cache image is faster than building the dependencies fresh on a newly provision server.
 
 This cache docker image will inevitablely get slow as the delta between it and the final docker image grows.  Whenver that happens this task provides a relatively quick way to update the docker cache image.
 
-Dynamically generating the FROM docker image name using the git sha allows different base images to be use in long running feature branches also.
+The docker cache image name uses the HEAD git sha to allow different base images among different long running feature branches.
+
+Ideally, the entire final docker image should be built and shipped as part of the deploy process but this was an faster appraoch for my specific use case.
 
 ## Installation
 
