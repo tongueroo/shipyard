@@ -93,7 +93,7 @@ class Shipyard
 
   def ssh_execute(command)
     command = "time #{command}"
-    command = %|ssh shipyard "cd ~/src/@@project && #{command}"|
+    command = %|ssh shipyard "cd ~/src/#{@@project} && #{command}"|
     puts "==> #{command}".green
     system(command)
   end
