@@ -31,7 +31,7 @@ class Shipyard
       run_build("docker build -t #{@cache.new_name} -f Dockerfile.cache .", publish=true)
       update_dockerfile
     when :deploy
-      run_build("docker build -t @@project:deploy .")
+      run_build("docker build -t #{@@project}:deploy .")
     else
       raise "Invalid build image stage: #{stage}"
     end
@@ -45,7 +45,7 @@ class Shipyard
     else
       rsync
       ssh_execute(cmd)
-      push(skip_rsync=true) if publish
+      # push(skip_rsync=true) if publish
     end
   end
 
@@ -65,7 +65,7 @@ class Shipyard
     exclude = exclude.uniq.map{|path| "--exclude='#{path}'"}.join(' ')
     options = "--delete --numeric-ids --safe-links -axzSv #{exclude}"
     src = "./"
-    dest = "src/@@project"
+    dest = "src/#{@@project}"
 
     rsync = "rsync #{options} #{src} #{@@server}:#{dest}"
     execute(rsync)
