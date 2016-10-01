@@ -45,7 +45,7 @@ class Shipyard
     else
       rsync
       ssh_execute(cmd)
-      # push(skip_rsync=true) if publish
+      push(skip_rsync=true) if publish
     end
   end
 
